@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';//apiden veri almak için bunu ekle
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,13 +11,14 @@ import { NaviComponent } from './components/navi/navi.component';
 @NgModule({
   declarations: [
     AppComponent,
-    ProductComponent,
+    ProductComponent, //kullanacağımız componentleri buraya eklemeliyiz
     CategoryComponent,
     NaviComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule//yukarıda importu ekledikten sonra bunuda ekle
   ],
   providers: [],
   bootstrap: [AppComponent]
