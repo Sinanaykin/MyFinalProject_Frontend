@@ -1,0 +1,24 @@
+<!--Welcome to {{title}} <!--  {{}} bu süslü parantez demek burda angular kodu var demek.{{title}} içine title yazdık app.component.ts deki title ın karşılığını aldı buraya direk -->
+
+<!--Hello {{user}} <!-- {{user}} içine user yazdık app.component.ts deki user ın karşılığını aldı buraya direk -->
+
+<!-- {{product1.productName}} -->
+
+<!--<ul>
+  <li *ngFor="let product of products">{{product.productName}}</li><!-- Angular için direktif demek yani burda Li yi tekrarla demek.*ngFor="let product of products" bu şekil ise foreach döngüsü.product verdiğimiz takma isim onla çağırıyoruz   -->
+<!--</ul>-->
+
+<div class="container">
+  <app-navi></app-navi><!--Bu şekilde componentleri çağırdık -->
+
+  <div class="row">
+    <div class="col-md-3">
+      <app-category></app-category>
+    </div>
+    <div class="col-md-9">
+      <app-product></app-product>
+    </div>
+  </div>
+
+  <router-outlet></router-outlet>
+</div>
