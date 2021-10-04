@@ -7,18 +7,24 @@ import { AppComponent } from './app.component';
 import { ProductComponent } from './components/product/product.component';
 import { CategoryComponent } from './components/category/category.component';
 import { NaviComponent } from './components/navi/navi.component';
+import { VatAddedPipe } from './pipes/vat-added.pipe';
+import { FormsModule } from '@angular/forms';
+import { FilterPipePipe } from './pipes/filter-pipe.pipe';//arama alanı için ngModule kullanabilmek için bunu ekledik
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductComponent, //kullanacağımız componentleri buraya eklemeliyiz
     CategoryComponent,
-    NaviComponent
+    NaviComponent,
+    VatAddedPipe,
+    FilterPipePipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule//yukarıda importu ekledikten sonra bunuda ekle
+    HttpClientModule,//yukarıda importu ekledikten sonra bunuda ekle
+    FormsModule//arama alanı için ngModule kullanabilmek için bunu ekledik
   ],
   providers: [],
   bootstrap: [AppComponent]

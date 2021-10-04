@@ -1,9 +1,14 @@
 
 <ul class="list-group">
-  <li class="list-group-item">An item</li>
-  <li class="list-group-item">A second item</li>
-  <li class="list-group-item">A third item</li>
-  <li class="list-group-item">A fourth item</li>
-  <li class="list-group-item">And a fifth one</li>
+ <li [class]="getAllCategoryClass()" routerLink="/products" >Tüm Ürünler</li> <!-- Eğer tüm ürnleri görmek istersek böyle yapıyoruz -->
+<li (click)="setCurrentCategory(category)" routerLink="/products/category/{{category.categoryId}}" *ngFor="let category of categories" [class]="getCurrentCategoryClass(category)">{{category.categoryName}}</li>
+ <!--  (click) demek li 'ye (categorye)tıklama özellği verir,setCurrentCategory(category) ise setCurrentCategory metoduna parametre olarak category i yollamak demek bu metoduda cateegory.component.ts de tanımla-->
+ <!-- router-Link="/products/category/{{category.categoryId}} bu yapı ile yol veriyoruz yani buna tıkladığında hangi route a gideyim onu veriyoruz bunuda app-routing.module içine tanımla -->
 </ul>
 
+<!-- (click)="setCurrentCategory(category)" bu fonksiyona category gönderiyoruz .Tıklayınca bu fonksiyondaki işlemler yapılsın bu fonksiyonda category.component.ts içinde -->
+
+
+<h5 *ngIf="currentCategory" > <!-- burda if dersek categoryler sayfa gelince direk gelir bu olmazsa bir kere tıklamadan gelmiyodu -->
+{{currentCategory.categoryName}} seçtiniz
+</h5>

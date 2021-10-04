@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subscriber } from 'rxjs';
 import { Product } from 'src/app/models/product';
-import { ProductResponseModel } from 'src/app/models/productResponseModel';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -9,16 +10,23 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./product.component.css'],
 })
 export class ProductComponent implements OnInit {
-  products: Product[] = []; //productsa veri tipini verirken Product yaz çıkan yerden secki yukarı exportunuda getirsin.
+  products: Product[] = []; //productsa veri tipini verirken Product yaz çıkan yerden seç ki yukarı exportunuda getirsin.
   dataLoaded=false;//veri yüklendi burda false
+  filterText="";//product .html de arama  ile alakalı elimizde data var bunu component de tanımlamalıdıks
 
   //productResponseModel:ProductResponseModel{};
 
-  constructor(private productService:ProductService) {} //ProductComponent ProductService i kullanabilir diyoruz burda
+  constructor(private productService:ProductService, private activatedRoute:ActivatedRoute) {} //ProductComponent ProductService i kullanabilir diyoruz burda.ActivatedRoute mevcut ,aktif route demek buda
 
-  ngOnInit(): void {
+  ngOnInit(): void { //ngOnİnit bu component açıldığında çalışacak ilk metodtur
     // bu aslında c# daki public void NgOnIt() metodu gibi burda syntax farklı ondan böyle yazıyoruz
-    this.getProducts(); //aşağıdakini (fonksiyonu) çağırıyoruz burda
+    this.activatedRoute.params.subscribe(params=>{//activatedRoute a gidip categoryId verilmişmi ona bakıcaz
+      if (params["categoryId"]) {//eğer categoryId si varsa
+        this.getProductsByCategory(params["categoryId"]) //getProductsByCategory bu metodu çalıştır içinede params ın categoryId sini yolla
+      }else{
+        this.getProducts()//eğer categoryId yoksa getProducts i çalıştır diyoruz burdada
+      }
+    })
   }
 
   getProducts() {
@@ -26,6 +34,14 @@ export class ProductComponent implements OnInit {
      this.products=response.data
      this.dataLoaded=true;//veri yüklenince true yapıyoruz
    });
-   console.log();
+
   }
+
+  getProductsByCategory(categoryId:number) {
+    this.productService.getProductsByCategory(categoryId).subscribe(response=>{ //productService deki getProducts  a  response için productsa respondan gelen datayı getirir.Subscribe kullanımı ile  içindeki şeyleri sıralı çalışmasını sağlar asekron sekron olayı
+      this.products=response.data
+      this.dataLoaded=true;//veri yüklenince true yapıyoruz
+    });
+
+   }
 }

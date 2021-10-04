@@ -2,6 +2,15 @@
   <span class="visually-hidden">Loading...</span> <!--Dönen yuvarlak işaret bırakmak için ekliyoruz bunu.Ama *ngIf="dataLoaded==false" kullanarak veri yüklenmediyse(dataLoaded)  false ise göster diyoruz -->
 </div>
 
+<div class="mb-3">
+  <label for="filterText" class="form-label">Ürün Ara</label>
+  <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="arama ifadesi giriniz"><!--Product.component deki filterText alanına ile bu inputu bağlamalıyız.
+    Bunuda [(ngModel)]="filterText" ifadesiyle yapıyoruz.AMa ngModel i tanıtmalıyız sisteme.app.modules e git ve import { FormsModule } from '@angular/forms';bu importu ekle  -->
+</div>
+ <div *ngIf="filterText" class="alert alert-success" > <!--filterText var isealttaki yazı çıksın dedin *ngIf ile -->
+ {{filterText}} aradınız
+</div>
+
 <table *ngIf="dataLoaded==true" class="table"> <!--*ngIf="dataLoaded==true" dersek veri ler yüklenmeden  başlıklarda gözükmez -->
   <thead>
     <tr>
@@ -9,15 +18,18 @@
       <th>Ürün ADI</th>
       <th>Kategori</th>
       <th>Fiyat</th>
+      <th>Kdv'li Fiyat</th>
       <th>Stok Adedi</th>
     </tr>
   </thead>
 
-   <tr *ngFor="let product of products">  <!--foreach yapıyoruz burda -->
+   <tr *ngFor="let product of products | filterPipe:filterText">  <!--foreach yapıyoruz burda .Pipe olarak da filterPipe ı kullandık parametre olarak da filterText gönderdik-->
     <td>{{product.productId}}</td>
-    <td>{{product.productName}}</td>
+    <td>{{product.productName |uppercase}}</td> <!-- |uppercase ifadesiyle tüm product isimleri büyük olsun dedik işte bu bir pipes dır -->
     <td>{{product.categoryId}}</td>
-    <td>{{product.unitPrice}}</td>
+    <td>{{product.unitPrice |currency}}</td> <!--sonuna para biri mi ekledik hazır pipe ile-->
+    <td>{{product.unitPrice |vatAdded:10 | currency}}</td><!-- Kendimiz Kdv li Fiyat diye bir sutun ekledik ama veriyi apiden değilde Unit Price üzerinden almak istiyoruz pipe ile. -->
+                                           <!--Bunun için kendi pipe ımızı yazıcaz adıda vatAdded.Kdv oranını vermek istiyoruz parametreyide böyle belirtiyoruz -->
     <td>{{product.unitsInStock}}</td>
   </tr>
 </table>

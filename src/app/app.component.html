@@ -13,12 +13,12 @@
 
   <div class="row">
     <div class="col-md-3">
-      <app-category></app-category>
+      <app-category></app-category>  <!--Standart olmasını istediğimiz yerleri veriyoruz  -->
     </div>
     <div class="col-md-9">
-      <app-product></app-product>
+      <router-outlet></router-outlet><!--Değişme ihtimali olan yerleri mesela app-product onu router-outlet ile veriyoruz buraya  -->
     </div>
   </div>
 
-  <router-outlet></router-outlet>
+
 </div>
