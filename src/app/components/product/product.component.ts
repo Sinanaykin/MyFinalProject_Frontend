@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subscriber } from 'rxjs';
 import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/services/product.service';
@@ -16,7 +17,7 @@ export class ProductComponent implements OnInit {
 
   //productResponseModel:ProductResponseModel{};
 
-  constructor(private productService:ProductService, private activatedRoute:ActivatedRoute) {} //ProductComponent ProductService i kullanabilir diyoruz burda.ActivatedRoute mevcut ,aktif route demek buda
+  constructor(private productService:ProductService, private activatedRoute:ActivatedRoute,private toastrService:ToastrService) {} //ProductComponent ProductService i kullanabilir diyoruz burda.ActivatedRoute mevcut ,aktif route demek buda.Toastr(ngx-toastr) ı kullanmak için buraya eklemeliyiz adamlar bunu zaten servis gibi yapmış ondan böyle ekledik
 
   ngOnInit(): void { //ngOnİnit bu component açıldığında çalışacak ilk metodtur
     // bu aslında c# daki public void NgOnIt() metodu gibi burda syntax farklı ondan böyle yazıyoruz
@@ -42,6 +43,16 @@ export class ProductComponent implements OnInit {
       this.products=response.data
       this.dataLoaded=true;//veri yüklenince true yapıyoruz
     });
+
+   }
+
+   addToCart(product:Product){//addToCart fonksiyonuna parametre olarak productı verdik
+    if (product.productId===1) {
+      this.toastrService.error("Hata","Bu ürün sepete eklenemez")//id si bir olan eklenmesin mesela
+    }
+    else{
+    this.toastrService.success("Sepete eklendi",product.productName)
+    }
 
    }
 }
