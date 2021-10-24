@@ -1,0 +1,12 @@
+<li *ngIf="cartItems.length>0" class="nav-item dropdown"><!--Eğer cartItems tanımlıysa yani sepette ürün varsa göster burayı diyoruz -->
+  <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Sepetiniz
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+    <li *ngFor="let cartItem of cartItems" class="dropdown-item" >
+      <a><span class="badge bg-secondary">{{cartItem.quantity}}</span>{{cartItem.product.productName}}<span (click)="removeFromCart(cartItem.product)" class="badge bg-secondary">Sil</span></a>
+    </li> <!--Sepetteki ürünleri dön diyoruz ve isimlerini,miktarlarını yazdırıyoruz.Sil'e click özelliği verdik removeFromCart metoduna cartItem daki product'ı gönderiyoruz çünkü sepet den ürün siliyoruz-->
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" >Sepete Git</a></li>
+  </ul>
+</li>
