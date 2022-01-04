@@ -10,11 +10,11 @@ import { ProductComponent } from './components/product/product.component';
 import { CategoryComponent } from './components/category/category.component';
 import { NaviComponent } from './components/navi/navi.component';
 import { VatAddedPipe } from './pipes/vat-added.pipe';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilterPipePipe } from './pipes/filter-pipe.pipe';//arama alanı için ngModule kullanabilmek için bunu ekledik
-
 import { ToastrModule } from 'ngx-toastr';
-import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';//ngx-toastr için importu ekledik
+import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';
+import { ProductAddComponent } from './components/product-add/product-add.component';//ngx-toastr için importu ekledik
 
 @NgModule({
   declarations: [
@@ -24,7 +24,8 @@ import { CartSummaryComponent } from './components/cart-summary/cart-summary.com
     NaviComponent,
     VatAddedPipe,
     FilterPipePipe,
-    CartSummaryComponent
+    CartSummaryComponent,
+    ProductAddComponent
   ],
   imports: [
     BrowserModule,
@@ -32,6 +33,7 @@ import { CartSummaryComponent } from './components/cart-summary/cart-summary.com
     HttpClientModule,//yukarıda importu ekledikten sonra bunuda ekle
     FormsModule,//arama alanı için ngModule kullanabilmek için bunu ekledik
     BrowserAnimationsModule,//yukarı importunu eklediğimizi buraya da ekliyoruz
+    ReactiveFormsModule,
     ToastrModule.forRoot({ //forRoot diyerek bunu kullanılabilir hale getir diyoruz
       positionClass:"toast-bottom-right"  //ekranın neresinde cıksın
     })
