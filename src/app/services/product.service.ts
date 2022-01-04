@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http'; //api ye istek de bulunmak i�
 import { Observable } from 'rxjs';
 import { ListResponseModel } from '../models/listResponseModel';
 import { Product } from '../models/product';
+import { ResponseModel } from '../models/responseModel';
 
 @Injectable({ //injectable görünce bu bir servis demek
   providedIn: 'root'
@@ -24,5 +25,9 @@ export class ProductService {
   getProductsByCategory(categoryId:number):Observable<ListResponseModel<Product>> {//Eğer categoryId gelirse getProductsmetodunu değilde getProductsByCategory metodunu çalıştır demek için bu metoduda ekledik
     let newPath=this.apiUrl + "products/getbycategory?categoryId="+categoryId
     return this.httpClient.get<ListResponseModel<Product>>(newPath);//newPath adında bir şey tanımladık burayada yol verdilk bunu yukarıdaki api Url nin devamında kullanıcaz şartlar sağlanırsa,newPath i buraya vermeliyiz
+   }
+
+   add(product:Product) :Observable<ResponseModel>{//product eklicez tipi Product Modeli olucak.Ve sadece mesaj ve succes dönüyor bu yüzden sadece ResponseModel yazsak yeter tip belirtmeye gerek yok ProductResponseModel gibi
+     return this.httpClient.post<ResponseModel>(this.apiUrl+"products/add",product)//product ı göndericez post ile belirtilen adrese
    }
 }
