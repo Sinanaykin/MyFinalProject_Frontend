@@ -14,7 +14,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilterPipePipe } from './pipes/filter-pipe.pipe';//arama alanı için ngModule kullanabilmek için bunu ekledik
 import { ToastrModule } from 'ngx-toastr';
 import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';
-import { ProductAddComponent } from './components/product-add/product-add.component';//ngx-toastr için importu ekledik
+import { ProductAddComponent } from './components/product-add/product-add.component';
+import { LoginComponent } from './components/login/login.component';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { ProductAddComponent } from './components/product-add/product-add.compon
     VatAddedPipe,
     FilterPipePipe,
     CartSummaryComponent,
-    ProductAddComponent
+    ProductAddComponent,
+    LoginComponent
+
   ],
   imports: [
     BrowserModule,
