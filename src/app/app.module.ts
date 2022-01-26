@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';//apiden veri almak için bunu ekle
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';//apiden veri almak için bunu ekle
 
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations"//toastr ın daha düzgün çalışması için bu kütüphaneyide ekledik ,altta import  içinede belirt
 
@@ -16,6 +16,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';
 import { ProductAddComponent } from './components/product-add/product-add.component';
 import { LoginComponent } from './components/login/login.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 
 @NgModule({
@@ -43,7 +44,12 @@ import { LoginComponent } from './components/login/login.component';
     })
 
   ],
-  providers: [],
+  providers: [
+    {provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true}
+    //provide:HTTP_INTERCEPTORS=Bütün servisler için kullanılsın dedik.
+    //useClass:AuthInterceptor=HHTTP_INTERCEPTORS olarak çalışacak şey AuthInterceptor bunu belirtiyoruz
+    //multi:true=çoklu kullanıma izin veriyoruz
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

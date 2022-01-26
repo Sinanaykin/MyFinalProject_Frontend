@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup,FormControl,Validators,FormBuilder} from "@angular/forms";//Bunları eklemeliyiz Reactive form kullanmak için
+import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +12,7 @@ export class LoginComponent implements OnInit {
 
   loginForm:FormGroup; //FormGroup türünde bir loginForm tanımladık.Bunu html de vermemiz lazım
 
-  constructor(private formBuilder:FormBuilder) { }//FormBuilder bir service dir o yüzden buraya tanımlamalıyız
+  constructor(private formBuilder:FormBuilder,private authService:AuthService,private toastrService:ToastrService) { }//FormBuilder bir service dir o yüzden buraya tanımlamalıyız
 
   ngOnInit(): void {
     this.createLoginForm();//sayfa açılınca bu gözüksün
@@ -25,6 +27,14 @@ export class LoginComponent implements OnInit {
   login(){
     if (this.loginForm.valid) {//Eğer validation lar uyuyorsa
       console.log(this.loginForm.value);
+      let loginModel=Object.assign({},this.loginForm.value)//loginModel için bir obje oluşturuyoruz oda boş biz bu alanları(loginForm daki alanları) alıp boş yere eklicez
+      this.authService.login(loginModel).subscribe(response=>{//authService deki login metoduna loginModel'i gönderiyoruz ve asekronluğa uysun diye mesajı subscribe içinde vericez.Başarılı ise bu çalışır
+        this.toastrService.info(response.message)//data içinde gelen mesajı dön diyoruz
+      localStorage.setItem("token",response.data.token)//tokenı tuatacağımız yer burası.response içindeki data daki tokenı burda tut
+      },responseError=>{
+        this.toastrService.error(responseError.error)//Eğer validationlar uymuyorsa hata mesajı verir
+
+      })
     }
   }
 

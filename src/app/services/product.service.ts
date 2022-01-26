@@ -28,6 +28,6 @@ export class ProductService {
    }
 
    add(product:Product) :Observable<ResponseModel>{//product eklicez tipi Product Modeli olucak.Ve sadece mesaj ve succes dönüyor bu yüzden sadece ResponseModel yazsak yeter tip belirtmeye gerek yok ProductResponseModel gibi
-     return this.httpClient.post<ResponseModel>(this.apiUrl+"products/add",product)//product ı göndericez post ile belirtilen adrese
+     return this.httpClient.post<ResponseModel>(this.apiUrl+"products/add",product )//product ı göndericez post ile belirtilen adrese
    }
 }
